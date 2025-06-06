@@ -123,15 +123,15 @@
 
     <main id="main-content">
         <div id="home-view">
-            <h1>Sparititi Bixio Records</h1>
+            <h1>Spartiti Bixio Records</h1>
             <p>Seleziona uno spartito dal menù a sinistra per visualizzarlo e ascoltarlo.</p>
         </div>
 
-        <section class="brano-musicale" data-brano-id="brano_0">
+        <section class="brano-musicale">
             <h2>Buonanotte papà</h2>
             <div class="contenitore-spartito">
-                <p><strong>Spartito:</strong></p>
-                <iframe src="Scores/BUONANOTTE PAPÀ.pdf" width="100%" height="700px"></iframe>
+                <p><strong>Spartito:</strong> <a href="Scores/BUONANOTTE PAPÀ.pdf" target="_blank">Apri o Scarica PDF</a></p>
+                <iframe src="Scores/BUONANOTTE PAPÀ.pdf" width="100%" height="700px" title="Spartito Buonanotte papà"></iframe>
             </div>
             <div class="contenitore-audio">
                 <p><strong>Audio:</strong></p>
@@ -139,11 +139,11 @@
             </div>
         </section>
 
-        <section class="brano-musicale" data-brano-id="brano_1">
+        <section class="brano-musicale">
             <h2>Fumo e profumo</h2>
             <div class="contenitore-spartito">
-                <p><strong>Spartito:</strong></p>
-                <iframe src="Scores/FUMO E PROFUMO.pdf" width="100%" height="700px"></iframe>
+                <p><strong>Spartito:</strong> <a href="Scores/FUMO E PROFUMO.pdf" target="_blank">Apri o Scarica PDF</a></p>
+                <iframe src="Scores/FUMO E PROFUMO.pdf" width="100%" height="700px" title="Spartito Fumo e profumo"></iframe>
             </div>
             <div class="contenitore-audio">
                 <p><strong>Audio:</strong></p>
@@ -151,11 +151,11 @@
             </div>
         </section>
 
-         <section class="brano-musicale" data-brano-id="brano_1">
+         <section class="brano-musicale">
             <h2>Spazzacamino</h2>
             <div class="contenitore-spartito">
-                <p><strong>Spartito:</strong></p>
-                <iframe src="Scores/SPAZZACAMINO.pdf" width="100%" height="700px"></iframe>
+                <p><strong>Spartito:</strong> <a href="Scores/SPAZZACAMINO.pdf" target="_blank">Apri o Scarica PDF</a></p>
+                <iframe src="Scores/SPAZZACAMINO.pdf" width="100%" height="700px" title="Spartito Spazzacamino"></iframe>
             </div>
             <div class="contenitore-audio">
                 <p><strong>Audio:</strong></p>
@@ -163,11 +163,11 @@
             </div>
         </section>
 
-            <section class="brano-musicale" data-brano-id="brano_1">
+        <section class="brano-musicale">
             <h2>Paraguay</h2>
             <div class="contenitore-spartito">
-                <p><strong>Spartito:</strong></p>
-                <iframe src="Scores/PARAGUAY.pdf" width="100%" height="700px"></iframe>
+                <p><strong>Spartito:</strong> <a href="Scores/PARAGUAY.pdf" target="_blank">Apri o Scarica PDF</a></p>
+                <iframe src="Scores/PARAGUAY.pdf" width="100%" height="700px" title="Spartito Paraguay"></iframe>
             </div>
             <div class="contenitore-audio">
                 <p><strong>Audio:</strong></p>
@@ -183,41 +183,33 @@
             const sheetMusicListElement = document.getElementById('sheetMusicList');
             const braniMusicali = document.querySelectorAll('.brano-musicale');
 
-            // 1. Legge tutti i brani presenti nell'HTML e popola il menù
             braniMusicali.forEach((brano, index) => {
                 const titolo = brano.querySelector('h2').textContent;
-                const branoId = `brano_${index}`;
-                brano.dataset.branoId = branoId; // Assegna un ID univoco
+                const branoId = `brano_${index}`; // Assegna un ID univoco e progressivo
+                brano.dataset.branoId = branoId; 
 
                 const listItem = document.createElement('li');
                 listItem.textContent = titolo;
-                listItem.dataset.targetId = branoId;
                 
                 sheetMusicListElement.appendChild(listItem);
 
-                // 2. Aggiunge la funzionalità di click a ogni voce del menù
                 listItem.addEventListener('click', () => {
-                    // Nasconde la home e tutti gli altri brani
                     homeView.style.display = 'none';
                     braniMusicali.forEach(b => b.style.display = 'none');
-                    
-                    // Ferma tutti gli altri audio
                     document.querySelectorAll('audio').forEach(audio => audio.pause());
 
-                    // Mostra solo il brano selezionato
                     const targetBrano = document.querySelector(`.brano-musicale[data-brano-id="${branoId}"]`);
                     if (targetBrano) {
                         targetBrano.style.display = 'block';
                     }
 
-                    // Evidenzia l'elemento attivo nel menù
                     document.querySelectorAll('#sheetMusicList li').forEach(li => li.classList.remove('active'));
                     listItem.classList.add('active');
                 });
             });
             
             if (braniMusicali.length === 0) {
-                 sheetMusicListElement.innerHTML = '<li>Nessun brano trovato. Aggiungi una sezione HTML per popolarlo.</li>';
+                 sheetMusicListElement.innerHTML = '<li>Nessun brano trovato.</li>';
             }
         });
     </script>
