@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparititi Bixio Records</title>
+    <style>
+        :root {
+            --primary-bg: #f4f7f6;
+            --sidebar-bg: #2c3e50; /* Blu scuro */
+            --sidebar-text: #ecf0f1;
+            --sidebar-hover-bg: #34495e;
+            --active-bg: #1abc9c; /* Verde acqua per selezione */
+            --main-content-bg: #ffffff;
+            --text-color: #333;
+            --header-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg);
+            display: flex;
+            height: 100vh;
+            color: var(--text-color);
+            overflow: hidden;
+        }
+
+        #sidebar {
+            width: 300px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 25px;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        #sidebar h2 {
+            text-align: center;
+            margin: 0 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #34495e;
+            font-size: 1.5em;
+        }
+        #sheetMusicList {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #sheetMusicList li {
+            padding: 15px;
+            margin-bottom: 8px;
+            background-color: var(--sidebar-hover-bg);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.2s;
+            border-left: 5px solid transparent;
+        }
+        #sheetMusicList li:hover {
+            background-color: #4a6572;
+            transform: translateX(5px);
+        }
+        #sheetMusicList li.active {
+            background-color: var(--active-bg);
+            color: #fff;
+            font-weight: bold;
+            border-left: 5px solid #fff;
+        }
+
+        #main-content {
+            flex-grow: 1;
+            padding: 40px;
+            background-color: var(--main-content-bg);
+            overflow-y: auto;
+        }
+        
+        #home-view {
+            text-align: center;
+            padding-top: 100px;
+        }
+        #home-view h1 {
+            font-size: 3em;
+            color: var(--header-color);
+        }
+        #home-view p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        
+        .brano-musicale {
+            display: none; /* Tutti i brani sono nascosti di default */
+        }
+        .brano-musicale h2 {
+             font-size: 2.2em;
+            color: var(--header-color);
+            margin-bottom: 20px;
+            border-bottom: 3px solid #eee;
+            padding-bottom: 15px;
+        }
+        .contenitore-spartito iframe {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .contenitore-audio {
+            margin-top: 25px;
+        }
+        .contenitore-audio audio {
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <aside id="sidebar">
+        <h2>Spartiti</h2>
+        <ul id="sheetMusicList">
+            </ul>
+    </aside>
+
+    <main id="main-content">
+        <div id="home-view">
+            <h1>Sparititi Bixio Records</h1>
+            <p>Seleziona uno spartito dal menù a sinistra per visualizzarlo e ascoltarlo.</p>
+        </div>
+
+        <section class="brano-musicale" data-brano-id="brano_0">
+            <h2>Buonanotte papà</h2>
+            <div class="contenitore-spartito">
+                <p><strong>Spartito:</strong></p>
+                <iframe src="Scores/BUONANOTTE PAPÀ.pdf" width="100%" height="700px"></iframe>
+            </div>
+            <div class="contenitore-audio">
+                <p><strong>Audio:</strong></p>
+                <audio controls src="audio/BUONANOTTE PAPÀ.mp3"></audio>
+            </div>
+        </section>
+
+        <section class="brano-musicale" data-brano-id="brano_1">
+            <h2>Fumo e profumo</h2>
+            <div class="contenitore-spartito">
+                <p><strong>Spartito:</strong></p>
+                <iframe src="Scores/FUMO E PROFUMO.pdf" width="100%" height="700px"></iframe>
+            </div>
+            <div class="contenitore-audio">
+                <p><strong>Audio:</strong></p>
+                <audio controls src="audio/FUMO E PROFUMO.mp3"></audio>
+            </div>
+        </section>
+
+         <section class="brano-musicale" data-brano-id="brano_1">
+            <h2>Spazzacamino</h2>
+            <div class="contenitore-spartito">
+                <p><strong>Spartito:</strong></p>
+                <iframe src="Scores/SPAZZACAMINO.pdf" width="100%" height="700px"></iframe>
+            </div>
+            <div class="contenitore-audio">
+                <p><strong>Audio:</strong></p>
+                <audio controls src="audio/SPAZZACAMINO.mp3"></audio>
+            </div>
+        </section>
+
+            <section class="brano-musicale" data-brano-id="brano_1">
+            <h2>Paraguay</h2>
+            <div class="contenitore-spartito">
+                <p><strong>Spartito:</strong></p>
+                <iframe src="Scores/PARAGUAY.pdf" width="100%" height="700px"></iframe>
+            </div>
+            <div class="contenitore-audio">
+                <p><strong>Audio:</strong></p>
+                <audio controls src="audio/PARAGUAY.mp3"></audio>
+            </div>
+        </section>
+
+        </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const homeView = document.getElementById('home-view');
+            const sheetMusicListElement = document.getElementById('sheetMusicList');
+            const braniMusicali = document.querySelectorAll('.brano-musicale');
+
+            // 1. Legge tutti i brani presenti nell'HTML e popola il menù
+            braniMusicali.forEach((brano, index) => {
+                const titolo = brano.querySelector('h2').textContent;
+                const branoId = `brano_${index}`;
+                brano.dataset.branoId = branoId; // Assegna un ID univoco
+
+                const listItem = document.createElement('li');
+                listItem.textContent = titolo;
+                listItem.dataset.targetId = branoId;
+                
+                sheetMusicListElement.appendChild(listItem);
+
+                // 2. Aggiunge la funzionalità di click a ogni voce del menù
+                listItem.addEventListener('click', () => {
+                    // Nasconde la home e tutti gli altri brani
+                    homeView.style.display = 'none';
+                    braniMusicali.forEach(b => b.style.display = 'none');
+                    
+                    // Ferma tutti gli altri audio
+                    document.querySelectorAll('audio').forEach(audio => audio.pause());
+
+                    // Mostra solo il brano selezionato
+                    const targetBrano = document.querySelector(`.brano-musicale[data-brano-id="${branoId}"]`);
+                    if (targetBrano) {
+                        targetBrano.style.display = 'block';
+                    }
+
+                    // Evidenzia l'elemento attivo nel menù
+                    document.querySelectorAll('#sheetMusicList li').forEach(li => li.classList.remove('active'));
+                    listItem.classList.add('active');
+                });
+            });
+            
+            if (braniMusicali.length === 0) {
+                 sheetMusicListElement.innerHTML = '<li>Nessun brano trovato. Aggiungi una sezione HTML per popolarlo.</li>';
+            }
+        });
+    </script>
+</body>
+</html>
