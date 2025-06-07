@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparititi Bixio Records</title>
+    <title>Spartiti Bixio Records</title>
     <style>
         :root {
             --primary-bg: #f4f7f6;
@@ -29,6 +29,7 @@
 
         #sidebar {
             width: 300px;
+            flex-shrink: 0; 
             background-color: var(--sidebar-bg);
             color: var(--sidebar-text);
             padding: 25px;
@@ -49,7 +50,8 @@
             padding: 0;
             margin: 0;
         }
-        #sheetMusicList li {
+        #sheetMusicList a {
+            display: block;
             padding: 15px;
             margin-bottom: 8px;
             background-color: var(--sidebar-hover-bg);
@@ -57,12 +59,14 @@
             cursor: pointer;
             transition: background-color 0.2s ease-in-out, transform 0.2s;
             border-left: 5px solid transparent;
+            color: var(--sidebar-text);
+            text-decoration: none;
         }
-        #sheetMusicList li:hover {
+        #sheetMusicList a:hover {
             background-color: #4a6572;
             transform: translateX(5px);
         }
-        #sheetMusicList li.active {
+        #sheetMusicList a.active {
             background-color: var(--active-bg);
             color: #fff;
             font-weight: bold;
@@ -99,7 +103,12 @@
             border-bottom: 3px solid #eee;
             padding-bottom: 15px;
         }
-        .contenitore-spartito iframe {
+        .contenitore-spartito img {
+            width: 100%;
+            max-width: 800px; /* Evita che l'immagine diventi troppo grande su schermi ampi */
+            display: block; /* Rimuove spazio extra sotto l'immagine */
+            margin-left: auto;
+            margin-right: auto;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -110,6 +119,29 @@
             width: 100%;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-radius: 50px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                display: block;
+                height: auto;
+                overflow: visible;
+            }
+            #sidebar {
+                width: 100%;
+                height: auto;
+                box-sizing: border-box;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            }
+            #main-content {
+                padding: 20px;
+            }
+            #home-view h1 {
+                font-size: 2em;
+            }
+            .brano-musicale h2 {
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
@@ -130,20 +162,24 @@
         <section class="brano-musicale">
             <h2>Buonanotte papà</h2>
             <div class="contenitore-spartito">
-                <p><strong>Spartito:</strong> <a href="Scores/BUONANOTTE PAPÀ.pdf" target="_blank">Apri o Scarica PDF</a></p>
-                <iframe src="Scores/BUONANOTTE PAPÀ.pdf" width="100%" height="700px" title="Spartito Buonanotte papà"></iframe>
+                <p><strong>Spartito:</strong></p>
+                <img src="Scores/BUONANOTTE PAPÀ-1.png" alt="Spartito musicale del brano Buonanotte papà">
+                                <img src="Scores/BUONANOTTE PAPÀ-2.png">
+
             </div>
             <div class="contenitore-audio">
                 <p><strong>Audio:</strong></p>
-                <audio controls src="audio/BUONANOTTE PAPÀ.mp3"></audio>
+                <audio controls src="audio/BUONANOTTE PAPÀ.mp3"></audio>
             </div>
         </section>
 
         <section class="brano-musicale">
             <h2>Fumo e profumo</h2>
             <div class="contenitore-spartito">
-                <p><strong>Spartito:</strong> <a href="Scores/FUMO E PROFUMO.pdf" target="_blank">Apri o Scarica PDF</a></p>
-                <iframe src="Scores/FUMO E PROFUMO.pdf" width="100%" height="700px" title="Spartito Fumo e profumo"></iframe>
+                <p><strong>Spartito:</strong></p>
+                <img src="Scores/FUMO E PROFUMO-1.png" alt="Spartito musicale del brano Fumo e profumo">
+                                <img src="Scores/FUMO E PROFUMO-2.png">
+
             </div>
             <div class="contenitore-audio">
                 <p><strong>Audio:</strong></p>
@@ -154,8 +190,8 @@
          <section class="brano-musicale">
             <h2>Spazzacamino</h2>
             <div class="contenitore-spartito">
-                <p><strong>Spartito:</strong> <a href="Scores/SPAZZACAMINO.pdf" target="_blank">Apri o Scarica PDF</a></p>
-                <iframe src="Scores/SPAZZACAMINO.pdf" width="100%" height="700px" title="Spartito Spazzacamino"></iframe>
+                <p><strong>Spartito:</strong></p>
+                <img src="Scores/SPAZZACAMINO-1.png" alt="Spartito musicale del brano Spazzacamino">
             </div>
             <div class="contenitore-audio">
                 <p><strong>Audio:</strong></p>
@@ -166,8 +202,8 @@
         <section class="brano-musicale">
             <h2>Paraguay</h2>
             <div class="contenitore-spartito">
-                <p><strong>Spartito:</strong> <a href="Scores/PARAGUAY.pdf" target="_blank">Apri o Scarica PDF</a></p>
-                <iframe src="Scores/PARAGUAY.pdf" width="100%" height="700px" title="Spartito Paraguay"></iframe>
+                <p><strong>Spartito:</strong></p>
+                <img src="Scores/PARAGUAY.png" alt="Spartito musicale del brano Paraguay">
             </div>
             <div class="contenitore-audio">
                 <p><strong>Audio:</strong></p>
@@ -185,15 +221,20 @@
 
             braniMusicali.forEach((brano, index) => {
                 const titolo = brano.querySelector('h2').textContent;
-                const branoId = `brano_${index}`; // Assegna un ID univoco e progressivo
+                const branoId = `brano_${index}`;
                 brano.dataset.branoId = branoId; 
 
                 const listItem = document.createElement('li');
-                listItem.textContent = titolo;
+                const link = document.createElement('a');
+                link.textContent = titolo;
+                link.href = `#${branoId}`;
                 
+                listItem.appendChild(link);
                 sheetMusicListElement.appendChild(listItem);
 
-                listItem.addEventListener('click', () => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+
                     homeView.style.display = 'none';
                     braniMusicali.forEach(b => b.style.display = 'none');
                     document.querySelectorAll('audio').forEach(audio => audio.pause());
@@ -203,8 +244,8 @@
                         targetBrano.style.display = 'block';
                     }
 
-                    document.querySelectorAll('#sheetMusicList li').forEach(li => li.classList.remove('active'));
-                    listItem.classList.add('active');
+                    document.querySelectorAll('#sheetMusicList a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
                 });
             });
             
